@@ -67,6 +67,7 @@ export default {
     vm.mapInstance.on('click', function (event) {
       console.log('clicking on:', event.coordinate);
     });
+    // Seems like we can only listening on this event. Not actually activate when zoom level change.
     vm.mapInstance.getView().on('change:resolution', function (event) {
       const zoomLevel = vm.mapInstance.getView().getZoom();
       console.log('current zoom level:', zoomLevel);
