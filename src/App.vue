@@ -25,7 +25,7 @@ import { fromLonLat } from 'ol/proj.js';
 export default {
   data() {
     return {
-      mapInstance: {},
+      mapInstance: null,
     };
   },
   methods: {
@@ -63,6 +63,13 @@ export default {
         center: Taipei,
         constrainResolution: true,
       }),
+    });
+    vm.mapInstance.on('click', function (event) {
+      console.log('clicking on:', event.coordinate);
+    });
+    vm.mapInstance.getView().on('change:resolution', function (event) {
+      const zoomLevel = vm.mapInstance.getView().getZoom();
+      console.log('current zoom level:', zoomLevel);
     });
   },
 };
