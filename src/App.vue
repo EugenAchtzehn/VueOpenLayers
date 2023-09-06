@@ -7,7 +7,11 @@
   </header>
 
   <main>
-    <div ref="mapRoot" class="map"></div>
+    <div ref="mapRoot" class="map" @mousemove="moveMouseOnMap"></div>
+    <div class="my-3">
+      <button type="button" class="btn btn-success" @click="getMapInstance">讀取 MapInstance</button>
+      <button type="button" class="btn btn-info ms-3" @click="setCenterToTokyo">中心至東京</button>
+    </div>
   </main>
 </template>
 
@@ -24,9 +28,26 @@ export default {
       mapInstance: {},
     };
   },
+  methods: {
+    getMapInstance() {
+      console.log('Map:', this.mapInstance);
+      console.log('getAllLayers:', this.mapInstance.getAllLayers());
+      console.log('getView:', this.mapInstance.getView());
+      console.log(`getViewProjection:`, this.mapInstance.getView().getProjection());
+    },
+    setCenterToTokyo() {
+      const vm = this;
+      const Tokyo = fromLonLat([139.45, 35.4]);
+      vm.mapInstance.getView().setCenter(Tokyo);
+    },
+    moveMouseOnMap() {
+      // console.log('moving');
+    },
+  },
   mounted() {
+    const vm = this;
     const Taipei = fromLonLat([121.6, 25.1]);
-    this.mapInstance = new Map({
+    vm.mapInstance = new Map({
       // the map will be created using the 'map-root' ref
       target: this.$refs.mapRoot,
       layers: [
